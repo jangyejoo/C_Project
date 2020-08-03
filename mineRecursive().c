@@ -9,7 +9,7 @@ void mineRecursive(struct mineboard(*m)[MAX_Y], int tmpX, int tmpY){
 	else if (m[tmpX][tmpY].minecount == 0) {
 		for (i = tmpX-2; i < tmpX + 4; i++) {
 			for (j = tmpY - 1; j < tmpY + 2; j++) {
-				mineRecursive(m, tmpX, tmpY);
+				mineRecursive(m, i, j);
 			}
 		}
 	}
