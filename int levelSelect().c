@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 int levelSelect() {
 	int select;
 	while (1) {
