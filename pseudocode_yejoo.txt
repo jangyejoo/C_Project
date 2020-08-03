@@ -1,0 +1,164 @@
+int levelSelect(){
+	int select; //변수
+	while(1){ //select에 올바른 값이 들어올 때 까지 무한 반복
+		system(cls); //화면 지우기
+		levelSelectMenu(); //메뉴 출력
+		scanf(&select); //값 입력 받음
+		if(select==1) return 15;
+		else if(select==2) return 20;
+		else if(select==3) return 25;
+		else continue;
+	}
+}
+
+void makeMap(struct mineboard (*m) [MAX],int gamelevel){
+	for(int i=0에서부터 gameleve-1까지){
+		for(int j=0에서부터 gamelevel-1까지){
+			if(i==0 || i==gamelevel-1 || j==0 || j==gamelevel-1){
+				wall=1; mine=0; block=0; flag=0; minecount=0;
+			}
+			else {
+				wall=0; mine=0; block=0; flag=0; minecount=0;
+			}
+		}
+	}
+	randMine으로 랜덤으로 지뢰 배치
+	for(i=1에서부터 gamelevel-2까지){
+		for(j=0에서부터 MAX-gamelevel+2까지){
+			for(k=i-1에서부터 i+2까지){
+				for(l=j-1에서부터 j+2까지){
+					if(m[k][l].mine==1){
+						m[i][j].minecount++;
+					}
+				}
+			}
+		}
+	}
+}
+
+void randMine(struct mineboard (*m) [MAX],int gamelevel){
+	int mineCnt;
+	if(gamelevel==15) mineCnt=10;
+	else if(gamelevel==25) mineCnt=50;
+	else if(gamelevel==30) mineCnt=80;
+	do{//mineCnt만큼 반복
+		i와 j를 랜덤으로 정함
+		if(m[i][j].mine==0) {
+			m[i][j].mine=1;
+			mineCnt--;
+		}
+	}while(mineCnt)
+} 
+
+int gameStart(struct mineboard (*m) [MAX],int gamelevel){
+	시작 시간,끝 시간,경과 시간 변수 선언	
+	time(&시작 시간); //시작 시간 기록
+	point.x=2;
+	point.y=1;
+	Map 출력
+	초기 커서 위치 gotoxy(2,1);
+	while(1){
+	if(_kbhit()){
+		ch=_getch();
+		switch(ch){
+		case LEFT:if(x>2) gotoxy(x-=2,y); //문자들이 x좌표는 2개씩 차지함
+		break;
+		case RIGHT:if(x<=(gamelevel-2)*2) gotoxy(x+=2,y);
+		break;
+		case UP:if(y>1) gotoxy(x,y-=1);
+		break;
+		case DOWN:if(y<= gamelevel-2) gotoxy(x,y+=1);
+		break;
+		default:
+		break;
+		}
+		if(ch==f){
+			if(m[player.x/2][player.y].flag==0){
+				m[player.x/2][player.y].flag==1;
+			}// 지금 위치의 flag 값이 0이면 1로 바꾸고}
+			else {
+				m[player.x/2][player.y].flag==1;
+			} // 지금 위치의 flag 값이 1이면 0으로 바꾼다.
+		}
+		else if(ch==스페이스바){
+			지금 위치가 지뢰가 아니면{/
+				mineRecursive(m,player.x/2,player.y)
+				if resultFunc이용해서 끝났는지 확인하고 끝났으면{
+					끝난 시간 기록;
+					경과 시간 계산;
+					경과시간을 리턴;
+			}
+			지금 위치가 지뢰면{
+				이중 for문 돌려서 모든 좌표의 block값을 1로 전환//벽 제외?
+				맵 출력
+				return 999;
+			}
+		}
+	}
+}
+
+int resultFunc(struct mineboard(*m) [MAX],int gamelevel,int allMine){
+	//gamelevel에 따라서 allMine 설정
+	이중for문 돌려서 만약 벽이 아니고 블록이 제거가 안됐으면 count변수 ++;
+	만약 allMine==count이면 성공{
+		맵전체 출력;
+		리턴 1;
+	아니면 
+		리턴 0;
+}
+
+void mineRecursive(struct mineboard(*m) [MAX],int tmpX,int tmpY){
+	지금 위치가 벽이면 그냥 리턴
+	지금 위치가 이미 블록이 제거된 좌표면 리턴
+	지금 위치가 주변 지뢰 숫자를 나타내는 블록이라면 
+		블록제거하고 리턴
+	그 외에 경우 블록 제거하고
+	이중 for 문으로 지금 좌표 주변 9개 좌표에 대해 
+		mineRecursive(m,x,y);
+}
+
+int main(){
+	m선언 등 변수 선언//L1_top1,2,3 & L2_top1,2,3 & L3_top1,2,3
+	만약 기록 저장 파일이 있으면
+		파일로부터 값 내려받아서 변수 채우기
+	없으면
+		변수 999로 초기화
+	while(1){
+	화면 지우기
+	메인메뉴 출력
+	select 입력 받음
+	화면지우기
+			
+	switch(select){
+		case 1:
+		gamelevel=levelSelet(m);
+		makeMap;
+		경과시간=gameStart
+		만약 같은 레벨의 top3보다 값이 작으면
+			printf(“기록 저장 하시겠습니까? yes/no”);
+			답 입력 받음
+			yes면 
+				만약 현재 top2보다 크면  top3 변수에 기록 저장
+				만약 현재 top1보다 크고 top2보다 작으면 top2 변수에 기록 저장
+				만약 현재 top1보다 작으면 top1 변수에 기록
+			no면 break;
+		
+		case 2:
+		void rank();
+		break;
+
+		case 3:
+		기록변수를 레벨 별로 파일로 저장 gamelog()
+		시스템 종료
+		
+		default:
+		break;
+	}
+}
+
+void gameLog(){ //
+	파일 입출력 이용해서 기록 저장
+}
+
+
+
