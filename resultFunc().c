@@ -14,7 +14,7 @@ int resultFunc(struct mineboard(*m)[MAX_Y], int gamelevel, int allMine){
 		displayMap(m, gamelevel);
 		gotoxy(gamelevel * 2, 6);
 		printf("게임 성공!");
-		gotoxy(gamelevel * 2, gamelevel + 1);
+		gotoxy(gamelevel * 2, 7);
 		return 1;
 	}
 	return 0;
