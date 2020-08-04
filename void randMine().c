@@ -11,5 +11,6 @@ void randMine(struct mineboard(*m)[MAX], int gamelevel) {
 			m[i][j].mine = 1;
 			mineCnt--;
 		}
-	} while (mineCnt);
+		else continue;
+	} while (mineCnt>0);
 }
