@@ -1,4 +1,4 @@
-//초급 기록 배열 int Lv1[3]={10,20,30}, 중급 기록 배열 int Lv2[3], 고급 기록 배열 int Lv3[3]
+//초급 기록 배열 int Lv1[3], 중급 기록 배열 int Lv2[3], 고급 기록 배열 int Lv3[3]
 
 int gameLog() { //size는 배열 크기
 	int i;
