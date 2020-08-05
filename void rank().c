@@ -6,15 +6,15 @@ void rank() {
 	puts("▩                          ▩");
 	puts("▩          *초급*          ▩");
 	puts("▩                          ▩");
-	printf("▩   %3d     %3d     %3d    ▩\n",L1_1,L1_2,L1_3);
+	printf("▩   %3d     %3d     %3d    ▩\n",Lv1[0],Lv1[1],Lv1[2]);
 	puts("▩                          ▩");
 	puts("▩          *중급*          ▩");
 	puts("▩                          ▩");
-	printf("▩   %3d     %3d     %3d    ▩\n",L2_1,L2_2,L2_3);
+	printf("▩   %3d     %3d     %3d    ▩\n",Lv2[0],Lv2[1],Lv2[2]);
 	puts("▩                          ▩");
 	puts("▩          *고급*          ▩");
 	puts("▩                          ▩");
-	printf("▩   %3d     %3d     %3d    ▩\n",L3_1,L3_2,L3_3);
+	printf("▩   %3d     %3d     %3d    ▩\n",Lv3[0],Lv3[1],Lv3[2]);
 	puts("▩                          ▩");
 	puts("▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩");
 	puts("");
