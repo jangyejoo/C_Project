@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <windows.h>
+int Lv1[3], Lv2[3], Lv3[3]; //기록변수 배열
+
 int main() {
 	struct mineboard m[MAX_X][MAX_Y];
 	int i, ch, select, elapsedTime;
@@ -8,11 +10,7 @@ int main() {
 	FILE* fp_r1 = fopen("easy.txt", "r");
 	FILE* fp_r2 = fopen("mid.txt", "r");
 	FILE* fp_r3 = fopen("hard.txt", "r");
-	int Lv1[3], Lv2[3], Lv3[3]; //기록변수 배열
-	for (i = 0; i < 3; i++) fscanf(fp_r1, "%d", Lv1[i]);
-	for (i = 0; i < 3; i++) fscanf(fp_r2, "%d", Lv2[i]);
-	for (i = 0; i < 3; i++) fscanf(fp_r3, "%d", Lv3[i]);
-
+	
 	if (fp_r1 == NULL) {
 		for (i = 0; i < 3; i++) Lv1[i] = 999;
 	}
@@ -22,6 +20,12 @@ int main() {
 	if (fp_r3 == NULL) {
 		for (i = 0; i < 3; i++) Lv3[i] = 999;
 	}
+
+	for (i = 0; i < 3; i++) fscanf(fp_r1, "%d", Lv1[i]);
+	for (i = 0; i < 3; i++) fscanf(fp_r2, "%d", Lv2[i]);
+	for (i = 0; i < 3; i++) fscanf(fp_r3, "%d", Lv3[i]);
+
+	
 
 	while (1) {
 		system("cls");
@@ -80,12 +84,12 @@ int main() {
 			} //기록 저장 묻기 끝
 
 		case 2: //순위 보기
-			rank(); //매개변수 추가..?
+			rank();
 			system("pause");
 			break;
 
 		case 3: //겜종료, 기록 저장
-			gameLog(Lv1, Lv2, Lv3, 3);
+			gameLog();
 			return 0;
 
 		default:
