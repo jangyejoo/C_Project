@@ -23,27 +23,33 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 				if (player.x > 2) gotoxy(player.x -= 2, player.y);
 				break;
 			case RIGHT:
-				if (player.x < gamelevel * 2) gotoxy(player.x += 2, player.y);
+				if (player.x < (gamelevel-2) * 2) gotoxy(player.x += 2, player.y);
 				break;
 			case UP:
 				if (player.y > 1) gotoxy(player.x, player.y -= 1);
 				break;
 			case DOWN:
-				if (player.y < gamelevel - 1) gotoxy(player.x, player.y += 1);
+				if (player.y < gamelevel - 2) gotoxy(player.x, player.y += 1);
 				break;
 			}
 
 			if (ch == 'f' || ch == 'F') {
-				if (m[player.x][player.y].flag == 0) m[player.x][player.y].flag == 1;
-				else m[player.x][player.y].flag == 0;
+				if (m[player.y][player.x/2].flag == 0) {
+					m[player.y][player.x/2].flag = 1;
+					displayMap(m,gamelevel);
+				}
+				else {
+					m[player.y][player.x/2].flag = 0;
+					displayMap(m,gamelevel);
+				}
 			}
 
 			else if (ch == SPACEBAR) {
 
-				if (m[player.x][player.y].mine == 1) {
+				if (m[player.y][player.x/2].mine == 1) {
 					for (i = 0; i < gamelevel; i++) {
 						for (j = 0; j < gamelevel; j++) {
-							if (m[i][j].wall != 1) m[i][j].block == 1;
+							if (m[i][j].wall != 1) m[i][j].block = 1;
 						}
 					}
 					displayMap(m, gamelevel);
@@ -55,7 +61,8 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 				}
 
 				else {
-					mineRecursive(m, player.x, player.y);
+					mineRecursive(m, player.y, player.x/2);
+					displayMap(m, gamelevel);
 					if (resultFunc(m, gamelevel, mineCnt) == 1) {
 						time(&end);
 						duration = difftime(end, start);
