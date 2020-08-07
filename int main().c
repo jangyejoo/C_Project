@@ -38,107 +38,106 @@ int main() {
 	}
 	
 	while (1) {
-			system("cls");
-			mainMenu();
-			fflush(stdin); scanf("%d", &select);
-			system("cls");
+		system("cls");
+		mainMenu();
+		fflush(stdin); scanf("%d", &select);
+		system("cls");
 
-			switch (select) {
-			case 1: //겜시작
-				gamelevel = levelSelect();
+		switch (select) {
+		case 1: //겜시작
+			gamelevel = levelSelect();
 				
-				switch (gamelevel) {  //기록 저장 묻기-레벨별로
-				case 15:
-					makeMap(m, gamelevel);
-					system("cls");
-					elapsedTime = gameStart(m, gamelevel);
-					if (elapsedTime < Lv1[2]) {
-						printf("기록을 저장하시겠습니까? y / n\n");
-						c1 = _getch();
-						if (c1 == 121) {
-							if (elapsedTime > Lv1[1]) {
-								Lv1[2] = elapsedTime;
-							}								
-							else if (elapsedTime < Lv1[0]) {
-								Lv1[2] = Lv1[1];
-								Lv1[1] = Lv1[0];
-								Lv1[0] = elapsedTime;
-							}
-							else {
-								Lv1[2] = Lv1[1];
-								Lv1[1] = elapsedTime;
-							}
-							break;
+			switch (gamelevel) {  //기록 저장 묻기-레벨별로
+			case 15:
+				makeMap(m, gamelevel);
+				system("cls");
+				elapsedTime = gameStart(m, gamelevel);
+				if (elapsedTime < Lv1[2]) {
+					printf("기록을 저장하시겠습니까? y / n\n");
+					c1 = _getch();
+					if (c1 == 121) {
+						if (elapsedTime > Lv1[1]) {
+							Lv1[2] = elapsedTime;
+						}								
+						else if (elapsedTime < Lv1[0]) {
+							Lv1[2] = Lv1[1];
+							Lv1[1] = Lv1[0];
+							Lv1[0] = elapsedTime;
 						}
-						else if (c1 == 'n') break;
-					}
-					break;
-
-				case 20:
-					makeMap(m, gamelevel);
-					system("cls");
-					elapsedTime = gameStart(m, gamelevel);
-					if (elapsedTime < Lv2[2]) {
-						printf("기록을 저장하시겠습니까? y / n\n");
-						c1 = _getch();
-						if (c1 == 121) {
-							if (elapsedTime > Lv2[1]) {
-								Lv2[2] = elapsedTime;
-							}
-							else if (elapsedTime < Lv2[0]) {
-								Lv2[2] = Lv2[1];
-								Lv2[1] = Lv2[0];
-								Lv2[0] = elapsedTime;
-							}
-							else {
-								Lv2[2] = Lv2[1];
-								Lv2[1] = elapsedTime;
-							}
-							break;
+						else {
+							Lv1[2] = Lv1[1];
+							Lv1[1] = elapsedTime;
 						}
-						else if (c1 == 'n') break;
+						break;
 					}
-					break;
-
-				case 25:
-					makeMap(m, gamelevel);
-					system("cls");
-					elapsedTime = gameStart(m, gamelevel);
-					if (elapsedTime < Lv3[2]) {
-						printf("기록을 저장하시겠습니까? y / n\n");
-						c1 = _getch();
-						if (c1 == 121) {
-							if (elapsedTime > Lv3[1]) {
-								Lv3[2] = elapsedTime;
-							}
-							else if (elapsedTime < Lv3[0]) {
-								Lv3[2] = Lv3[1];
-								Lv3[1] = Lv3[0];
-								Lv3[0] = elapsedTime;
-							}
-							else {
-								Lv3[2] = Lv3[1];
-								Lv3[1] = elapsedTime;
-							}
-							break;
-						}
-						else if (c1 == 'n') break;
-					}
-					break;
-				} //기록 저장 묻기 끝
+					else if (c1 == 'n') break;
+				}
 				break;
 
-			case 2: //순위 보기
-				rank(Lv1,Lv2,Lv3); //매개변수 추가..?
-				system("pause");
+			case 20:
+				makeMap(m, gamelevel);
+				system("cls");
+				elapsedTime = gameStart(m, gamelevel);
+				if (elapsedTime < Lv2[2]) {
+					printf("기록을 저장하시겠습니까? y / n\n");
+					c1 = _getch();
+					if (c1 == 121) {
+						if (elapsedTime > Lv2[1]) {
+							Lv2[2] = elapsedTime;
+						}
+						else if (elapsedTime < Lv2[0]) {
+							Lv2[2] = Lv2[1];
+							Lv2[1] = Lv2[0];
+							Lv2[0] = elapsedTime;
+						}
+						else {
+							Lv2[2] = Lv2[1];
+							Lv2[1] = elapsedTime;
+						}
+						break;
+					}
+					else if (c1 == 'n') break;
+				}
 				break;
-
-			case 3: //겜종료, 기록 저장
-				gameLog(Lv1, Lv2, Lv3, 3);
-				return 0;
-
-			default:
+			case 25:
+				makeMap(m, gamelevel);
+				system("cls");
+				elapsedTime = gameStart(m, gamelevel);
+				if (elapsedTime < Lv3[2]) {
+					printf("기록을 저장하시겠습니까? y / n\n");
+					c1 = _getch();
+					if (c1 == 121) {
+						if (elapsedTime > Lv3[1]) {
+							Lv3[2] = elapsedTime;
+						}
+						else if (elapsedTime < Lv3[0]) {
+							Lv3[2] = Lv3[1];
+							Lv3[1] = Lv3[0];
+							Lv3[0] = elapsedTime;
+						}
+						else {
+							Lv3[2] = Lv3[1];
+							Lv3[1] = elapsedTime;
+						}
+						break;
+					}
+					else if (c1 == 'n') break;
+				}
 				break;
-			}
+			} //기록 저장 묻기 끝
+			break;
+
+		case 2: //순위 보기
+			rank(); //매개변수 추가..?
+			system("pause");
+			break;
+
+		case 3: //겜종료, 기록 저장
+			gameLog(Lv1, Lv2, Lv3, 3);
+			return 0;
+
+		default:
+			break;
 		}
+	}
 }
