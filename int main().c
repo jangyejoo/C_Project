@@ -128,7 +128,7 @@ int main() {
 			break;
 
 		case 2: //순위 보기
-			rank(); //매개변수 추가..?
+			rank(); 
 			system("pause");
 			break;
 
@@ -137,7 +137,7 @@ int main() {
 			system("pause");
 			break;
 		case 4: //겜종료, 기록 저장
-			gameLog(Lv1, Lv2, Lv3, 3);
+			gameLog();
 			return 0;
 		default:
 			break;
