@@ -132,10 +132,13 @@ int main() {
 			system("pause");
 			break;
 
-		case 3: //겜종료, 기록 저장
+		case 3:
+			howtoPlay();
+			system("pause");
+			break;
+		case 4: //겜종료, 기록 저장
 			gameLog(Lv1, Lv2, Lv3, 3);
 			return 0;
-
 		default:
 			break;
 		}
