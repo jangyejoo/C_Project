@@ -25,6 +25,7 @@ void makeMap(struct mineboard(*m)[MAX], int gamelevel) {
 						if (m[k][l].mine == 1) {
 							m[i][j].minecount++;
 						}
+						else continue;
 				}
 			}
 		}
