@@ -1,6 +1,6 @@
 void randMine(struct mineboard(*m)[MAX], int gamelevel) {
 	int mineCnt=0;
-	if (gamelevel == 15) mineCnt = 10;
+	if (gamelevel == 15) mineCnt = 20;
 	else if (gamelevel == 20) mineCnt = 50;
 	else if (gamelevel == 25) mineCnt = 80;
 	srand(time(NULL));
