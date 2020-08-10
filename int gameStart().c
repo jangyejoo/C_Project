@@ -1,6 +1,6 @@
 int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 	int mineCnt;
-	if (gamelevel == 15) mineCnt = 10;
+	if (gamelevel == 15) mineCnt = 20;
 	else if (gamelevel == 20) mineCnt = 50;
 	else if (gamelevel == 25) mineCnt = 80;
 	double duration;
