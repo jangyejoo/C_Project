@@ -12,7 +12,7 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 	time(&start);
 	player.x = 2;
 	player.y = 1;
-	displayMap(m,gamelevel);
+	displayMap(m, gamelevel, &mineCnt);
 	gotoxy(player.x, player.y);
 
 	while (1) {
@@ -36,11 +36,13 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 			if (ch == 'f' || ch == 'F') {
 				if (m[player.y][player.x/2].flag == 0) {
 					m[player.y][player.x/2].flag = 1;
-					displayMap(m,gamelevel);
+					--mineCnt;
+					displayMap(m, gamelevel, &mineCnt);
 				}
 				else {
 					m[player.y][player.x/2].flag = 0;
-					displayMap(m,gamelevel);
+					++mineCnt;
+					displayMap(m, gamelevel, &mineCnt);
 				}
 			}
 
@@ -52,7 +54,7 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 							if (m[i][j].wall != 1) m[i][j].block = 1;
 						}
 					}
-					displayMap(m, gamelevel);
+					displayMap(m, gamelevel, &mineCnt);
 					gotoxy(gamelevel * 2 + 5, 6);
 					printf("게임 실패");
 					gotoxy(0, gamelevel + 3);
@@ -61,8 +63,8 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 				}
 
 				else {
-					mineRecursive(m, player.y, player.x/2);
-					displayMap(m, gamelevel);
+					mineRecursive(m, player.y, player.x / 2, &mineCnt);
+					displayMap(m, gamelevel, &mineCnt);
 					if (resultFunc(m, gamelevel, mineCnt) == 1) {
 						time(&end);
 						duration = difftime(end, start);
@@ -80,8 +82,8 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 					for (int i = player.y - 1; i < player.y + 2; i++) {
 						for (int j = player.x / 2 - 1; j < player.x / 2 + 2; j++) {
 							if (m[i][j].mine==0&&m[i][j].block == 0) {
-								mineRecursive(m, i, j);
-								displayMap(m, gamelevel);
+								mineRecursive(m, i, j, &mineCnt);
+								displayMap(m, gamelevel, &mineCnt);
 								if (resultFunc(m, gamelevel, mineCnt) == 1) {
 									time(&end);
 									duration = difftime(end, start);
@@ -91,15 +93,10 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 									system("pause");
 									return (int)duration;
 								}
-							}
-								
+							}		
 						}
-					}
-					
+					}	
 				}
-
-				
-
 			}
 		}
 	}
