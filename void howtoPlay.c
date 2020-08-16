@@ -13,5 +13,8 @@ void howtoPlay() {
 	puts("▩     SPACEBAR : 블록 제거     ▩");
 	puts("▩                              ▩");
 	puts("▩                              ▩");
+	puts("▩   d : 주변블록 한번에 제거   ▩");
+	puts("▩                              ▩");
+	puts("▩                              ▩");
 	puts("▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩");
 }
