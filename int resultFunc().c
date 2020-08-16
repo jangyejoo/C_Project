@@ -9,7 +9,7 @@ int resultFunc(struct mineboard(*m)[MAX_Y], int gamelevel, int allMine){
 		}
 	}
 	if (allMine == count) {
-		displayMap(m, gamelevel);
+		displayMap(m, gamelevel, &allMine);
 		gotoxy(gamelevel * 2 + 5, 6);
 		printf("게임 성공!");
 		gotoxy(0, gamelevel + 5);
