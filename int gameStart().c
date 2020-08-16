@@ -74,6 +74,33 @@ int gameStart(struct mineboard (*m) [MAX_Y],int gamelevel) {
 					}
 				}
 			}
+			else if ((m[player.y][player.x/2].block==1)&&(ch == 'd'||ch=='D')) {			
+				if (speedBreaker(m, player.y, player.x / 2)==1) {
+					
+					for (int i = player.y - 1; i < player.y + 2; i++) {
+						for (int j = player.x / 2 - 1; j < player.x / 2 + 2; j++) {
+							if (m[i][j].mine==0&&m[i][j].block == 0) {
+								mineRecursive(m, i, j);
+								displayMap(m, gamelevel);
+								if (resultFunc(m, gamelevel, mineCnt) == 1) {
+									time(&end);
+									duration = difftime(end, start);
+									gotoxy(gamelevel * 2 + 5, 4);
+									printf("게임 기록 : %d초", (int)duration);
+									gotoxy(0, gamelevel + 3);
+									system("pause");
+									return (int)duration;
+								}
+							}
+								
+						}
+					}
+					
+				}
+
+				
+
+			}
 		}
 	}
 }
