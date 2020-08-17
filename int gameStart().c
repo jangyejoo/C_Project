@@ -33,7 +33,7 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 				break;
 			}
 
-			if (ch == 'f' || ch == 'F') {
+			if ((ch == 'f' || ch == 'F')&&(m[player.y][player.x/2].block==0)) {
 				if (m[player.y][player.x/2].flag == 0) {
 					m[player.y][player.x/2].flag = 1;
 					--mineCnt;
