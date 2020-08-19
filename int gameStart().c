@@ -102,6 +102,20 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel,int *retMine) {
 						}
 					}	
 				}
+				else {
+					for ( i = 0; i < gamelevel; i++) {
+						for ( j = 0; j < gamelevel; j++) {
+							if (m[i][j].wall != 1) m[i][j].block = 1;
+						}
+					}
+					system("cls");
+					displayMap(m, gamelevel);
+					gotoxy(gamelevel * 2 + 5, 6);
+					printf("게임 실패");
+					gotoxy(0, gamelevel + 3);
+					system("pause");
+					return 999;
+				}
 			}
 		}
 	}
