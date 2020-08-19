@@ -1,8 +1,8 @@
-int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
+int gameStart(struct mineboard (*m) [MAX],int gamelevel,int *retMine) {
 	int mineCnt;
 	if (gamelevel == 15) mineCnt = 20;
 	else if (gamelevel == 20) mineCnt = 50;
-	else if (gamelevel == 25) mineCnt = 80;
+	else if (gamelevel == 25) mineCnt = 109;
 	double duration;
 	Point player;
 	char ch;
@@ -12,7 +12,8 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 	time(&start);
 	player.x = 2;
 	player.y = 1;
-	displayMap(m, gamelevel, &mineCnt);
+	displayMap(m, gamelevel);
+	printRetMine(gamelevel, &mineCnt);
 	gotoxy(player.x, player.y);
 
 	while (1) {
@@ -37,12 +38,14 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 				if (m[player.y][player.x/2].flag == 0) {
 					m[player.y][player.x/2].flag = 1;
 					--mineCnt;
-					displayMap(m, gamelevel, &mineCnt);
+					displayMap(m, gamelevel);
+					printRetMine(gamelevel, &mineCnt);
 				}
 				else {
 					m[player.y][player.x/2].flag = 0;
 					++mineCnt;
-					displayMap(m, gamelevel, &mineCnt);
+					displayMap(m, gamelevel);
+					printRetMine(gamelevel, &mineCnt);
 				}
 			}
 
@@ -54,7 +57,8 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 							if (m[i][j].wall != 1) m[i][j].block = 1;
 						}
 					}
-					displayMap(m, gamelevel, &mineCnt);
+					system("cls");
+					displayMap(m, gamelevel);
 					gotoxy(gamelevel * 2 + 5, 6);
 					printf("게임 실패");
 					gotoxy(0, gamelevel + 3);
@@ -64,7 +68,8 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 
 				else {
 					mineRecursive(m, player.y, player.x / 2, &mineCnt);
-					displayMap(m, gamelevel, &mineCnt);
+					displayMap(m, gamelevel);		
+					printRetMine(gamelevel, &mineCnt);
 					if (resultFunc(m, gamelevel, mineCnt) == 1) {
 						time(&end);
 						duration = difftime(end, start);
@@ -83,7 +88,7 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 						for (int j = player.x / 2 - 1; j < player.x / 2 + 2; j++) {
 							if (m[i][j].mine==0&&m[i][j].block == 0) {
 								mineRecursive(m, i, j, &mineCnt);
-								displayMap(m, gamelevel, &mineCnt);
+								displayMap(m, gamelevel);
 								if (resultFunc(m, gamelevel, mineCnt) == 1) {
 									time(&end);
 									duration = difftime(end, start);
