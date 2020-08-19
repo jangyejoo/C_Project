@@ -3,7 +3,7 @@
 #include <windows.h>
 int Lv1[3], Lv2[3], Lv3[3]; //기록변수 배열
 
-int main() {
+int main(int mineCnt) {
 	struct mineboard m[MAX_X][MAX_Y];
 	int i, select, elapsedTime;
 	char c1;
@@ -51,7 +51,7 @@ int main() {
 			case 15:
 				makeMap(m, gamelevel);
 				system("cls");
-				elapsedTime = gameStart(m, gamelevel);
+				elapsedTime = gameStart(m, gamelevel,&mineCnt);
 				if (elapsedTime < Lv1[2]) {
 					printf("기록을 저장하시겠습니까? y / n\n");
 					c1 = _getch();
@@ -77,7 +77,7 @@ int main() {
 			case 20:
 				makeMap(m, gamelevel);
 				system("cls");
-				elapsedTime = gameStart(m, gamelevel);
+				elapsedTime = gameStart(m, gamelevel, &mineCnt);
 				if (elapsedTime < Lv2[2]) {
 					printf("기록을 저장하시겠습니까? y / n\n");
 					c1 = _getch();
@@ -102,7 +102,7 @@ int main() {
 			case 25:
 				makeMap(m, gamelevel);
 				system("cls");
-				elapsedTime = gameStart(m, gamelevel);
+				elapsedTime = gameStart(m, gamelevel, &mineCnt);
 				if (elapsedTime < Lv3[2]) {
 					printf("기록을 저장하시겠습니까? y / n\n");
 					c1 = _getch();
