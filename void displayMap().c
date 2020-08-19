@@ -1,4 +1,4 @@
-void displayMap(struct mineboard(*m)[MAX], int gamelevel, int* retMine) {
+void displayMap(struct mineboard(*m)[MAX], int gamelevel) {
 	gotoxy(0, 0);
 	for (int i = 0; i < gamelevel; i++) {
 		for (int j = 0; j < gamelevel; j++) {
@@ -26,6 +26,4 @@ void displayMap(struct mineboard(*m)[MAX], int gamelevel, int* retMine) {
 		}
 		printf("\n");
 	}
-	gotoxy(gamelevel * 2 + 5, 3);
-	printf("남은 지뢰 개수 : %2d", *retMine);
 }
