@@ -1,10 +1,10 @@
-int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
+int gameStart(struct mineboard(*m)[MAX], int gamelevel) {
 	int mineCnt;
 	if (gamelevel == 15) mineCnt = 20;
 	else if (gamelevel == 20) mineCnt = 50;
 	else if (gamelevel == 25) mineCnt = 109;
 	double duration;
-	Point player;
+	struct Point player;
 	char ch;
 	int i, j;
 	time_t start, end;
@@ -14,6 +14,7 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 	player.y = 1;
 	displayMap(m, gamelevel);
 	printRetMine(gamelevel, &mineCnt);
+
 	gotoxy(player.x, player.y);
 
 	while (1) {
@@ -24,7 +25,7 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 				if (player.x > 2) gotoxy(player.x -= 2, player.y);
 				break;
 			case RIGHT:
-				if (player.x < (gamelevel-2) * 2) gotoxy(player.x += 2, player.y);
+				if (player.x < (gamelevel - 2) * 2) gotoxy(player.x += 2, player.y);
 				break;
 			case UP:
 				if (player.y > 1) gotoxy(player.x, player.y -= 1);
@@ -34,15 +35,16 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 				break;
 			}
 
-			if ((ch == 'f' || ch == 'F')&&(m[player.y][player.x/2].block==0)) {
-				if (m[player.y][player.x/2].flag == 0) {
-					m[player.y][player.x/2].flag = 1;
+			if ((ch == 'f' || ch == 'F') && (m[player.y][player.x / 2].block == 0)) {
+
+				if (m[player.y][player.x / 2].flag == 0) {
+					m[player.y][player.x / 2].flag = 1;
 					--mineCnt;
 					displayMap(m, gamelevel);
 					printRetMine(gamelevel, &mineCnt);
 				}
 				else {
-					m[player.y][player.x/2].flag = 0;
+					m[player.y][player.x / 2].flag = 0;
 					++mineCnt;
 					displayMap(m, gamelevel);
 					printRetMine(gamelevel, &mineCnt);
@@ -51,7 +53,7 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 
 			else if (ch == SPACEBAR) {
 
-				if (m[player.y][player.x/2].mine == 1) {
+				if (m[player.y][player.x / 2].mine == 1) {
 					for (i = 0; i < gamelevel; i++) {
 						for (j = 0; j < gamelevel; j++) {
 							if (m[i][j].wall != 1) m[i][j].block = 1;
@@ -63,14 +65,14 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 					printf("게임 실패");
 					gotoxy(0, gamelevel + 3);
 					system("pause");
-					return 999;
+					return -1;
 				}
 
 				else {
 					mineRecursive(m, player.y, player.x / 2, &mineCnt);
-					displayMap(m, gamelevel);		
+					displayMap(m, gamelevel);
 					printRetMine(gamelevel, &mineCnt);
-					if (resultFunc(m, gamelevel, mineCnt) == 1) {
+					if (resultFunc(m, gamelevel) == 1) {
 						time(&end);
 						duration = difftime(end, start);
 						gotoxy(gamelevel * 2 + 5, 4);
@@ -81,30 +83,48 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 					}
 				}
 			}
-			else if ((m[player.y][player.x/2].block==1)&&(ch == 'd'||ch=='D')) {			
-				if (speedBreaker(m, player.y, player.x / 2)==1) {
-					
+			else if ((m[player.y][player.x / 2].block == 1) && (ch == 'd' || ch == 'D')) {
+				if (speedUnlock(m, player.y, player.x / 2) == 1) {
+
 					for (int i = player.y - 1; i < player.y + 2; i++) {
 						for (int j = player.x / 2 - 1; j < player.x / 2 + 2; j++) {
-							if (m[i][j].mine==0&&m[i][j].block == 0) {
-								mineRecursive(m, i, j, &mineCnt);
-								displayMap(m, gamelevel);
-								if (resultFunc(m, gamelevel, mineCnt) == 1) {
-									time(&end);
-									duration = difftime(end, start);
-									gotoxy(gamelevel * 2 + 5, 4);
-									printf("게임 기록 : %d초", (int)duration);
+							if (m[i][j].flag == 0 && m[i][j].block == 0) {
+
+								if (m[i][j].mine == 1) {
+									for (i = 0; i < gamelevel; i++) {
+										for (j = 0; j < gamelevel; j++) {
+											if (m[i][j].wall != 1) m[i][j].block = 1;
+										}
+									}
+									system("cls");
+									displayMap(m, gamelevel);
+									gotoxy(gamelevel * 2 + 5, 6);
+									printf("게임 실패");
 									gotoxy(0, gamelevel + 3);
 									system("pause");
-									return (int)duration;
+									return -1;
 								}
-							}		
+								else {
+									mineRecursive(m, i, j, &mineCnt);
+									displayMap(m, gamelevel);
+									if (resultFunc(m, gamelevel) == 1) {
+										time(&end);
+										duration = difftime(end, start);
+										gotoxy(gamelevel * 2 + 5, 4);
+										printf("게임 기록 : %d초", (int)duration);
+										gotoxy(0, gamelevel + 3);
+										system("pause");
+										return (int)duration;
+									}
+								}
+							}
 						}
-					}	
+					}
 				}
+				else if (speedUnlock(m, player.y, player.x / 2) == -1);
 				else {
-					for ( i = 0; i < gamelevel; i++) {
-						for ( j = 0; j < gamelevel; j++) {
+					for (i = 0; i < gamelevel; i++) {
+						for (j = 0; j < gamelevel; j++) {
 							if (m[i][j].wall != 1) m[i][j].block = 1;
 						}
 					}
@@ -114,7 +134,7 @@ int gameStart(struct mineboard (*m) [MAX],int gamelevel) {
 					printf("게임 실패");
 					gotoxy(0, gamelevel + 3);
 					system("pause");
-					return 999;
+					return -1;
 				}
 			}
 		}
