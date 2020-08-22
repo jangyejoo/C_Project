@@ -8,8 +8,9 @@ int speedUnlock(struct mineboard(*m)[MAX], int tmpX, int tmpY) {
 			if (m[i][j].flag == 1) count++;
 		}
 	}
-	if (m[tmpX][tmpY].minecount == count) return result;
-	else if (count == 0) return result *= 0;
+	if ((m[tmpX][tmpY].minecount != count)||(count==0)){
+		result *= 0;
+	}
 
-	return -1;
+	return result;
 }
